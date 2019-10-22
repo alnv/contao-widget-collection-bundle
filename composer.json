@@ -1,0 +1,41 @@
+{
+  "name": "alnv/widget-collection-bundle",
+  "type": "contao-bundle",
+  "license": "proprietary",
+  "description": "",
+  "homepage": "https://catalog-manager.org",
+  "authors": [
+    {
+      "name": "Alexander Naumov",
+      "homepage": "https://alexandernaumov.de",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Alnv\\ContaoWidgetCollectionBundle\\": "src/"
+    },
+    "classmap": [
+      "src/Resources/contao/"
+    ],
+    "exclude-from-classmap": [
+      "src/Resources/contao/config/"
+    ]
+  },
+  "require": {
+    "php":">=7.1",
+    "contao/core-bundle":"~4.4",
+    "sensio/framework-extra-bundle": "^5.2"
+  },
+  "config": {
+    "preferred-install": "dist"
+  },
+  "extra": {
+    "contao": {
+      "sources": {
+        "": "system/modules/contao-widget-collection-bundle"
+      }
+    },
+    "contao-manager-plugin": "Alnv\\ContaoWidgetCollectionBundle\\ContaoManager\\Plugin"
+  }
+}

@@ -1,0 +1,3 @@
+shopmanager:
+  resource: "@AlnvContaoWidgetCollectionBundle/Controller"
+  type: annotation
