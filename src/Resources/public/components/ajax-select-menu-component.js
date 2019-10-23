@@ -7,9 +7,6 @@ Vue.component( 'ajax-select-menu', {
     },
     methods: {
         fetchOptions: function ( search ) {
-            if ( search.length < 2 ) {
-                return null;
-            }
             this.$http.get( '/widget-collection/ajax-select-options', {
                 params: {
                     id: this.id,
@@ -42,6 +39,15 @@ Vue.component( 'ajax-select-menu', {
         placeholder: {
             type: String,
             default: ''
+        },
+        noOptions: {
+            type: String,
+            default: ''
+        }
+    },
+    mounted: function () {
+        if ( this.value ) {
+            this.fetchOptions( this.value );
         }
     },
     template:
@@ -49,7 +55,7 @@ Vue.component( 'ajax-select-menu', {
         '<div class="ajax-select-menu">' +
             '<input type="hidden" :name="name" :value="value">' +
             '<v-select @search="fetchOptions" @keypress.enter.native.prevent="" :placeholder="placeholder" :multiple="multiple" :id="\'ctrl_\' + id" v-model="value" :options="options" :reduce="value => value.value" label="label">' +
-                '<div slot="no-options">-</div>'+
+                '<div slot="no-options">{{ noOptions }}</div>'+
             '</v-select>' +
         '</div>' +
     '</div>'

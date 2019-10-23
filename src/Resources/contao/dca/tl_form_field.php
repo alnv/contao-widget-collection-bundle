@@ -1,6 +1,6 @@
 <?php
 
-$GLOBALS['TL_DCA']['tl_form_field']['palettes']['ajax_select'] = '{type_legend},type,name,label;{fconfig_legend},mandatory,multiple;{options_legend},table,vColumn,lColumn;{expert_legend:hide},class,accesskey,tabindex;{template_legend:hide},customTpl;{invisible_legend:hide},invisible';
+$GLOBALS['TL_DCA']['tl_form_field']['palettes']['ajax_select'] = '{type_legend},type,name,label,noOptions;{fconfig_legend},mandatory,multiple;{options_legend},table,vColumn,lColumn;{expert_legend:hide},class,accesskey,tabindex;{template_legend:hide},customTpl;{invisible_legend:hide},invisible';
 
 $GLOBALS['TL_DCA']['tl_form_field']['fields']['table'] = [
     'label' => &$GLOBALS['TL_LANG']['tl_form_field']['table'],
@@ -34,4 +34,14 @@ $GLOBALS['TL_DCA']['tl_form_field']['fields']['lColumn'] = [
     ],
     'exclude' => true,
     'sql' => "varchar(128) NOT NULL default ''"
+];
+$GLOBALS['TL_DCA']['tl_form_field']['fields']['noOptions'] = [
+    'label' => &$GLOBALS['TL_LANG']['tl_form_field']['noOptions'],
+    'inputType' => 'text',
+    'eval' => [
+        'maxlength' => 255,
+        'tl_class' => 'long clr'
+    ],
+    'exclude' => true,
+    'sql' => "varchar(255) NOT NULL default ''"
 ];

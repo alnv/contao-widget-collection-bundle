@@ -34,7 +34,7 @@ class MainController extends Controller {
             $strValueColumn = $objField->vColumn;
             $strLabelColumn = $objField->lColumn;
 
-            $objEntities= $objDatabase->prepare('SELECT * FROM '. $strTable . ' WHERE `'. $strLabelColumn .'` REGEXP ?' )->execute( \Input::get('search') );
+            $objEntities= $objDatabase->prepare('SELECT * FROM '. $strTable . ' WHERE `'. $strLabelColumn .'` REGEXP ? OR `'. $strValueColumn .'` REGEXP ?' )->execute( \Input::get('search'), \Input::get('search') );
 
             if ( $objEntities->numRows ) {
 
