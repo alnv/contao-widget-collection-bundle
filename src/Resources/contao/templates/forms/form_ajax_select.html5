@@ -24,5 +24,4 @@ if ( !isset( $GLOBALS['TL_CSS']['ajax-select-menu'] ) ) {
 <div class="v-component">
     <ajax-select-menu no-options="<?= $this->noOptions ?>" id="<?= $this->id ?>" placeholder="<?= $this->label ?>" name="<?= $this->name ?>" value="<?= $this->value ?>" :multiple="<?= $this->multiple ? 'true' : 'false' ?>"></ajax-select-menu>
 </div>
-
 <?php $this->endblock(); ?>

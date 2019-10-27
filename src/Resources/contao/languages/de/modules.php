@@ -1,3 +1,3 @@
 <?php
 
-$GLOBALS['TL_LANG']['FFL']['ajax_select'] = [ 'Ajax Select-Menü', '' ];
+$GLOBALS['TL_LANG']['FFL']['ajaxSelect'] = [ 'Ajax Select-Menü', '' ];

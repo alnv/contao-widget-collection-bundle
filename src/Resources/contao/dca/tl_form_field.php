@@ -1,6 +1,6 @@
 <?php
 
-$GLOBALS['TL_DCA']['tl_form_field']['palettes']['ajax_select'] = '{type_legend},type,name,label,noOptions;{fconfig_legend},mandatory,multiple;{options_legend},table,vColumn,lColumn;{expert_legend:hide},class,accesskey,tabindex;{template_legend:hide},customTpl;{invisible_legend:hide},invisible';
+$GLOBALS['TL_DCA']['tl_form_field']['palettes']['ajaxSelect'] = '{type_legend},type,name,label,noOptions;{fconfig_legend},mandatory,multiple;{options_legend},table,vColumn,lColumn;{expert_legend:hide},class,accesskey,tabindex;{template_legend:hide},customTpl;{invisible_legend:hide},invisible';
 
 $GLOBALS['TL_DCA']['tl_form_field']['fields']['table'] = [
     'label' => &$GLOBALS['TL_LANG']['tl_form_field']['table'],

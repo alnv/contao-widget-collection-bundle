@@ -3,15 +3,17 @@
 namespace Alnv\ContaoWidgetCollectionBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
+use Alnv\ContaoWidgetCollectionBundle\Helpers\Toolkit;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  *
- * @Route("/widget-collection", defaults={"_scope" = "frontend", "_token_check" = false})
+ * @Route("/widget-collection", defaults={"_token_check" = false})
  */
 class MainController extends Controller {
+
 
     /**
      *
@@ -50,6 +52,20 @@ class MainController extends Controller {
 
         header('Content-Type: application/json');
         echo json_encode( $arrReturn, 512 );
+        exit;
+    }
+
+
+    /**
+     *
+     * @Route("/combo-wizard", name="fetchComboWizard")
+     * @Method({"POST"})
+     */
+    public function fetchComboWizard() {
+
+        $this->container->get( 'contao.framework' )->initialize();
+        header('Content-Type: application/json');
+        echo json_encode( Toolkit::getEvalByTableAndFieldname( \Input::post('table'), \Input::post('name') ), 512 );
         exit;
     }
 }

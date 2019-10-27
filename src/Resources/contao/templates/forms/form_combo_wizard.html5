@@ -1,0 +1,10 @@
+<?php
+if ( !isset( $GLOBALS['TL_CSS']['ajax-select-menu'] ) ) {
+    $objCssCombiner = new \Combiner();
+    $objCssCombiner->add( 'bundles/alnvcontaowidgetcollection/libs/vue-select/vue-select.css' );
+    $GLOBALS['TL_CSS']['ajax-select-menu'] = $objCssCombiner->getCombinedFile();
+}
+?>
+<div class="v-component">
+    <combo-wizard table="<?= $this->table ?>" id="<?= $this->id ?>" name="<?= $this->name ?>" :value=<?= $this->value ?>></combo-wizard>
+</div>
