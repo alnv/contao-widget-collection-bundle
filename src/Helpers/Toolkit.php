@@ -41,4 +41,47 @@ class Toolkit {
 
         return $objActiveRecord;
     }
+
+
+    public static function decodeJson( $strJson, $arrMap = [] ) {
+
+        if ( !$strJson ) {
+
+            return [];
+        }
+
+        $arrJson = json_decode( $strJson );
+
+        if ( !is_array( $arrJson ) || empty( $arrJson ) ) {
+
+            return [];
+        }
+
+        $arrReturn = [];
+
+        foreach ( $arrJson as $arrOptions ) {
+
+            $arrOption = [];
+
+            foreach ( $arrOptions as $strKey => $strValue ) {
+
+                if ( $strValue === null ) {
+
+                    continue;
+                }
+
+                $strKey = $arrMap[ $strKey ] ?: $strKey;
+                $arrOption[ $strKey ] = (string) $strValue;
+            }
+
+            if ( empty( $arrOption ) ) {
+
+                continue;
+            }
+
+            $arrReturn[] = $arrOption;
+        }
+
+        return $arrReturn;
+    }
 }

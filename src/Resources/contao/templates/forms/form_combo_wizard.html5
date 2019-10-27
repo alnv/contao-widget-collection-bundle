@@ -1,7 +1,8 @@
 <?php
 if ( !isset( $GLOBALS['TL_CSS']['ajax-select-menu'] ) ) {
     $objCssCombiner = new \Combiner();
-    $objCssCombiner->add( 'bundles/alnvcontaowidgetcollection/libs/vue-select/vue-select.css' );
+    $objCssCombiner->add( 'bundles/alnvcontaowidgetcollection/libs/vue-select/vue-select.scss' );
+    $objCssCombiner->add( 'bundles/alnvcontaowidgetcollection/css/combo-wizard.scss' );
     $GLOBALS['TL_CSS']['ajax-select-menu'] = $objCssCombiner->getCombinedFile();
 }
 ?>

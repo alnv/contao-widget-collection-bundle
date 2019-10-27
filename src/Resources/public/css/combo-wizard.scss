@@ -1,0 +1,55 @@
+.combo-wizard-component {
+
+  margin: .25em 0;
+  width: 100%;
+
+  .combo-wizard {
+
+    width: 100%;
+
+    .options-container {
+
+      width: 100%;
+
+      .options {
+
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: .5em;
+
+        &.col-2 {
+
+          .option {
+
+            width: 41.5%;
+          }
+        }
+
+        .option {
+
+          &.operations {
+
+            width: 15%;
+            display: flex;
+            margin-right: 0;
+
+            button {
+
+              border: 0;
+              background: none;
+              margin: 0 .25em 0 0;
+
+              &:last-child {
+
+                margin-right: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -70,7 +70,7 @@ Vue.component( 'combo-wizard', {
         '<div class="combo-wizard">' +
             '<input type="hidden" :name="name" :value="value">' +
             '<draggable v-model="selected" handle=".move" class="options-container">' +
-                '<div v-for="select in selected" class="options">' +
+                '<div v-for="select in selected" class="options col-2">' +
                     '<div class="option first">' +
                         '<v-select @keypress.enter.native.prevent="" v-model="select.option" :options="options" :reduce="value => value.value" label="label"></v-select>' +
                     '</div>' +
