@@ -50,7 +50,7 @@ class Toolkit {
             return [];
         }
 
-        $arrJson = json_decode( $strJson );
+        $arrJson = json_decode( $strJson, true );
 
         if ( !is_array( $arrJson ) || empty( $arrJson ) ) {
 
