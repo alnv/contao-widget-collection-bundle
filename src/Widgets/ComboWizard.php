@@ -33,14 +33,14 @@ class ComboWizard extends \Widget {
             return false;
         }
 
-        $arrJson = json_decode( $strJson );
+        $arrJson = json_decode( $strJson, true );
 
         if ( !is_array( $arrJson ) || empty( $arrJson ) ) {
 
             return false;
         }
 
-        if ( isset( $arrJson[0] ) && $arrJson[0]->option === null || $arrJson[0]->option === '' ) {
+        if ( isset( $arrJson[0] ) && $arrJson[0]['option'] === null || $arrJson[0]['option'] === '' ) {
 
             return false;
         }
@@ -56,6 +56,8 @@ class ComboWizard extends \Widget {
         $objTemplate->id = \Input::get('id');
         $objTemplate->table = $this->strTable;
         $objTemplate->value = $this->value ?: '"[{}]"';
+        $objTemplate->enableGroup = $this->enableGroup ? 'true' : 'false';
+        $objTemplate->enableField = $this->enableField ? 'true' : 'false';
 
         return $objTemplate->parse();
     }

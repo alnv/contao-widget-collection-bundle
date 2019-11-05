@@ -1,7 +1,30 @@
 .combo-wizard-component {
 
+  box-sizing: border-box;
   margin: .25em 0;
   width: 100%;
+
+  &.group {
+
+    padding: .5em;
+    background: #fafafa;
+
+    .combo-wizard {
+
+      .options-container {
+
+        .options {
+
+          box-sizing: border-box;
+
+          &.grouped {
+
+            padding-left: 1em;
+          }
+        }
+      }
+    }
+  }
 
   .combo-wizard {
 
@@ -18,7 +41,7 @@
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: .5em;
+        margin-bottom: .25em;
 
         &.col-2 {
 
@@ -29,6 +52,13 @@
         }
 
         .option {
+
+          .tl_text {
+
+            padding: 6px;
+            outline: none;
+            border-radius: 0;
+          }
 
           &.operations {
 
@@ -46,6 +76,19 @@
 
                 margin-right: 0;
               }
+            }
+          }
+        }
+
+        &.col-4 {
+
+          .option {
+
+            width: 24%;
+
+            &.operations {
+
+              width: 24%;
             }
           }
         }
