@@ -3,7 +3,7 @@
 namespace Alnv\ContaoWidgetCollectionBundle\Widgets;
 
 
-class ComboWizard extends \Widget {
+class MultiDatesWizard extends \Widget {
 
 
     protected $blnSubmitInput = true;
@@ -15,19 +15,6 @@ class ComboWizard extends \Widget {
         parent::__set( $strKey, $varValue );
     }
 
-
-    public function validate() {
-
-        $varValue = $this->getPost( $this->strName );
-
-        if ( $this->mandatory && !$this->hasValue( $varValue ) ) {
-
-            $this->addError( sprintf($GLOBALS['TL_LANG']['ERR']['mandatory'], $this->strLabel ) );
-        }
-
-        parent::validate();
-    }
-    
 
     protected function hasValue( $strJson ) {
 
@@ -43,7 +30,7 @@ class ComboWizard extends \Widget {
             return false;
         }
 
-        if ( isset( $arrJson[0] ) && $arrJson[0]['option'] === null || $arrJson[0]['option'] === '' ) {
+        if ( isset( $arrJson[0] ) && $arrJson[0]['to'] === null || $arrJson[0]['from'] === '' ) {
 
             return false;
         }
@@ -52,15 +39,25 @@ class ComboWizard extends \Widget {
     }
 
 
+    public function validate() {
+
+        $varValue = $this->getPost( $this->strName );
+
+        if ( $this->mandatory && !$this->hasValue( $varValue ) ) {
+
+            $this->addError( sprintf($GLOBALS['TL_LANG']['ERR']['mandatory'], $this->strLabel ) );
+        }
+
+        parent::validate();
+    }
+
     public function generate() {
 
-        $objTemplate = new \FrontendTemplate( 'form_combo_wizard' );
+        $objTemplate = new \FrontendTemplate( 'form_multi_dates_wizard' );
         $objTemplate->name = $this->name;
         $objTemplate->id = \Input::get('id');
         $objTemplate->table = $this->strTable;
-        $objTemplate->value = $this->value ?: '"[{}]"';
-        $objTemplate->enableGroup = $this->enableGroup ? 'true' : 'false';
-        $objTemplate->enableField = $this->enableField ? 'true' : 'false';
+        $objTemplate->value = $this->value ?: '"[]"';
 
         return $objTemplate->parse();
     }

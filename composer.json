@@ -24,6 +24,7 @@
   },
   "require": {
     "php":">=7.1",
+    "ext-json": "*",
     "contao/core-bundle":"~4.4",
     "sensio/framework-extra-bundle": "^5.2"
   },

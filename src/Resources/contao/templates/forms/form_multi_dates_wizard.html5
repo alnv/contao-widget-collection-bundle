@@ -1,0 +1,3 @@
+<div class="v-component">
+    <multi-dates-wizard id="<?= $this->id ?>" name="<?= $this->name ?>" :value=<?= $this->value ?>></multi-dates-wizard>
+</div>
