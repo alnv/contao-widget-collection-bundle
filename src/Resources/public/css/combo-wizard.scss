@@ -1,93 +1,64 @@
 .combo-wizard-component {
-
   box-sizing: border-box;
   margin: .25em 0;
   width: 100%;
-
   &.group {
-
     padding: .5em;
     background: #fafafa;
-
     .combo-wizard {
-
       .options-container {
-
         .options {
-
           box-sizing: border-box;
-
           &.grouped {
-
             padding-left: 1em;
           }
         }
       }
     }
   }
-
   .combo-wizard {
-
     width: 100%;
-
     .options-container {
-
       width: 100%;
-
       .options {
-
         width: 100%;
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
         margin-bottom: .25em;
-
+        &:last-child {
+          margin-bottom: 0;
+        }
         &.col-2 {
-
           .option {
-
             width: 41.5%;
           }
         }
-
         .option {
-
           .tl_text {
-
             padding: 6px;
             outline: none;
             border-radius: 0;
           }
-
           &.operations {
-
             width: 15%;
             display: flex;
             margin-right: 0;
-
             button {
-
               border: 0;
               background: none;
               margin: 0 .25em 0 0;
-
               &:last-child {
-
                 margin-right: 0;
               }
             }
           }
         }
-
         &.col-4 {
-
           .option {
-
             width: 24%;
-
             &.operations {
-
               width: 24%;
             }
           }
