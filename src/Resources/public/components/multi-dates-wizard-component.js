@@ -111,7 +111,7 @@ Vue.component( 'multi-dates-wizard', {
                                 '<input type="text" v-model="row.from" v-pikaday>' +
                             '</div>' +
                             '<div class="td date to">' +
-                                '<input type="text" v-model="row.to" v-pikaday>' +
+                                '<input type="text" v-model="row.to" v-pikaday="{ minDate: row.from }">' +
                             '</div>' +
                             '<div class="td operations">' +
                                 '<button type="button" class="add" @click="addDate(row, index)"><img src="/system/themes/flexible/icons/copy.svg" alt="Hinzufügen"></button>' +
