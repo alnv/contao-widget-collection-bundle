@@ -6,7 +6,9 @@ namespace Alnv\ContaoWidgetCollectionBundle\Helpers;
 class MultiDatesToolkit {
 
 
-    public static function findDate( $varDate, $strJson, $blnIsTstamp = true ) {
+    public static function findDate( $varDate, $strJson, $blnIsTstamp = true, $strMethod = '' ) {
+
+        global $objPage;
 
         $arrReturn = [];
 
@@ -33,9 +35,31 @@ class MultiDatesToolkit {
 
         $varDate = (int) $varDate;
 
+        if ( $strMethod && !in_array( $strMethod, [ 'dayBegin', 'dayEnd', 'monthBegin', 'monthEnd' ] ) ) {
+
+            $strMethod = '';
+        }
+
         foreach ( $arrDates as $arrDate ) {
 
-            if ( $varDate >= (int) $arrDate['from'] && $varDate <= $arrDate['to'] ) {
+            if ( !$arrDate['from'] || !$arrDate['to'] ) {
+
+                continue;
+            }
+
+            $intFrom = (int) $arrDate['from'];
+            $intTo = (int) $arrDate['to'];
+
+            if ( $strMethod ) {
+
+                $objFromDate = new \Date( \Date::parse( $objPage->dateFormat, $intFrom ) );
+                $intFrom = $objFromDate->{$strMethod};
+
+                $objToDate = new \Date( \Date::parse( $objPage->dateFormat, $intTo ) );
+                $intTo = $objToDate->{$strMethod};
+            }
+
+            if ( $varDate >= $intFrom && $varDate <= $intTo ) {
 
                 $arrReturn[] = $arrDate;
             }
