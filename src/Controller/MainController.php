@@ -64,6 +64,7 @@ class MainController extends Controller {
     public function fetchComboWizard() {
 
         $this->container->get( 'contao.framework' )->initialize();
+        \System::loadLanguageFile( 'default', \Input::post('language') );
         header('Content-Type: application/json');
         echo json_encode( Toolkit::getEvalByTableAndFieldname( \Input::post('table'), \Input::post('name') ), 512 );
         exit;

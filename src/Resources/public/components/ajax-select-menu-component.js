@@ -40,6 +40,10 @@ Vue.component( 'ajax-select-menu', {
             type: String,
             default: ''
         },
+        language: {
+            type: String,
+            default: 'en'
+        },
         noOptions: {
             type: String,
             default: ''

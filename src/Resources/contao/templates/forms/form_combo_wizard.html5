@@ -1,3 +1,3 @@
 <div class="v-component">
-    <combo-wizard table="<?= $this->table ?>" :group="<?= $this->enableGroup ?>" :text-field="<?= $this->enableField ?>" id="<?= $this->id ?>" name="<?= $this->name ?>" :value=<?= $this->value ?>></combo-wizard>
+    <combo-wizard table="<?= $this->table ?>" language="<?= \System::getContainer()->get('request_stack')->getCurrentRequest()->getLocale(); ?>" :group="<?= $this->enableGroup ?>" :text-field="<?= $this->enableField ?>" id="<?= $this->id ?>" name="<?= $this->name ?>" :value=<?= $this->value ?>></combo-wizard>
 </div>

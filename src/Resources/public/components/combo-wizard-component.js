@@ -11,6 +11,7 @@ Vue.component( 'combo-wizard', {
     methods: {
         fetch: function () {
             this.$http.post( '/widget-collection/combo-wizard', {
+                language: this.language,
                 table: this.table,
                 name: this.name,
                 id: this.id
@@ -74,6 +75,10 @@ Vue.component( 'combo-wizard', {
             type: Array,
             required: true
         },
+        language: {
+            type: String,
+            default: 'en'
+        },
         textField: {
             type: Boolean,
             default: false,
@@ -96,10 +101,10 @@ Vue.component( 'combo-wizard', {
             '<draggable v-model="selected" handle=".move" class="options-container">' +
                 '<div v-for="( select, index ) in selected" class="options" v-bind:class="{\'col-4\': textField, \'col-2\': !textField, \'grouped\':isGroup(select,index)}">' +
                     '<div class="option first">' +
-                        '<v-select @keypress.enter.native.prevent="" placeholder="-" v-model="select.option" :options="options" :reduce="value => value.value" label="label"></v-select>' +
+                        '<v-select @keypress.enter.native.prevent="" placeholder="-" :language="language" v-model="select.option" :options="options" :reduce="value => value.value" label="label"></v-select>' +
                     '</div>' +
                     '<div class="option second">' +
-                        '<v-select @keypress.enter.native.prevent="" placeholder="-" v-model="select.option2" :options="options2" :reduce="value => value.value" label="label"></v-select>' +
+                        '<v-select @keypress.enter.native.prevent="" placeholder="-" :language="language"  v-model="select.option2" :options="options2" :reduce="value => value.value" label="label"></v-select>' +
                     '</div>' +
                     '<div class="option third" v-if="textField">' +
                         '<input type="text" v-model="select.option3" class="tl_text" placeholder="Abfragewert eintragen">' +
