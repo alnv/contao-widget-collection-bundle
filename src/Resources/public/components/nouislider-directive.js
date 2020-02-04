@@ -6,6 +6,6 @@ Vue.directive( 'nouislider', {
         });
     },
     update: function ($el,binding,vnode) {
-        //
+        $el.noUiSlider.set(binding.value.start);
     }
 });

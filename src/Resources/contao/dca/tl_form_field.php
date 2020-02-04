@@ -1,8 +1,8 @@
 <?php
 
-$GLOBALS['TL_DCA']['tl_form_field']['palettes']['nouislider'] = '{type_legend},type,name,label;{fconfig_legend},mandatory;{expert_legend:hide},class,accesskey,tabindex;{template_legend:hide},customTpl;{invisible_legend:hide},invisible';
-$GLOBALS['TL_DCA']['tl_form_field']['palettes']['multiDatesWizard'] = '{type_legend},type,name,label;{fconfig_legend},mandatory;{expert_legend:hide},class,value,accesskey,tabindex;{template_legend:hide},customTpl;{invisible_legend:hide},invisible';
 $GLOBALS['TL_DCA']['tl_form_field']['palettes']['ajaxSelect'] = '{type_legend},type,name,label,noOptions;{fconfig_legend},mandatory,multiple;{options_legend},table,vColumn,lColumn;{expert_legend:hide},class,accesskey,tabindex;{template_legend:hide},customTpl;{invisible_legend:hide},invisible';
+$GLOBALS['TL_DCA']['tl_form_field']['palettes']['multiDatesWizard'] = '{type_legend},type,name,label;{fconfig_legend},mandatory;{expert_legend:hide},class,value,accesskey,tabindex;{template_legend:hide},customTpl;{invisible_legend:hide},invisible';
+$GLOBALS['TL_DCA']['tl_form_field']['palettes']['nouislider'] = '{type_legend},type,name,label;{fconfig_legend},mandatory;{expert_legend:hide},class,accesskey,tabindex;{template_legend:hide},customTpl;{invisible_legend:hide},invisible';
 
 $GLOBALS['TL_DCA']['tl_form_field']['fields']['table'] = [
     'label' => &$GLOBALS['TL_LANG']['tl_form_field']['table'],
