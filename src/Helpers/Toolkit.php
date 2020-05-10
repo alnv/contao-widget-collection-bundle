@@ -10,7 +10,7 @@ class Toolkit {
         \System::loadLanguageFile($strTable);
         $objVDataContainer = new VDataContainer();
         $objVDataContainer->activeRecord = static::getActiveRecordFromRouting($strTable,$strId);
-        $arrField = \Widget::getAttributesFromDca($GLOBALS['TL_DCA'][$strTable]['fields'][ $strFieldname ], $strFieldname, '', $strFieldname, $strTable, $objVDataContainer);
+        $arrField = \Widget::getAttributesFromDca($GLOBALS['TL_DCA'][$strTable]['fields'][$strFieldname], $strFieldname, '', $strFieldname, $strTable, $objVDataContainer);
         return $arrField;
     }
 

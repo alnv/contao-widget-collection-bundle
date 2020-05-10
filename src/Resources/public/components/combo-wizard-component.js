@@ -1,5 +1,4 @@
-Vue.component( 'v-select', VueSelect.VueSelect );
-
+Vue.component('v-select', VueSelect.VueSelect);
 Vue.component( 'combo-wizard', {
     data: function () {
         return {
@@ -22,6 +21,7 @@ Vue.component( 'combo-wizard', {
                 if ( objResponse.body ) {
                     this.options = objResponse.body.options;
                     this.options2 = objResponse.body.options2;
+                    console.log(this.options)
                 }
             });
         },
