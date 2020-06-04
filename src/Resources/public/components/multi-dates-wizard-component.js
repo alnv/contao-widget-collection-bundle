@@ -2,23 +2,54 @@ Vue.component( 'multi-dates-wizard', {
     data: function () {
         return {
             rows: [],
-            error: '',
-            dateFormat: 'DD.MM.YYYY' // @todo improve
+            error: ''
         }
     },
     methods: {
         addDate: function (row,index) {
             let objRow = {};
+            objRow.day = row.day;
             objRow.from = row.from;
             objRow.to = row.to;
-            this.rows.splice( index+1, 0, objRow);
+            this.rows.splice(index+1, 0, objRow);
         },
         removeDate: function (row) {
-            for ( let i = 0; i < this.rows.length; i++ ) {
-                if ( this.rows[i] === row ) {
-                    this.rows.splice( i, 1 );
+            for (let i = 0; i < this.rows.length; i++) {
+                if (this.rows[i] === row) {
+                    this.rows.splice(i, 1);
                 }
             }
+        },
+        isValidDate: function (value) {
+            if (value === '' || value === null) {
+                return true;
+            }
+            let objDate = moment(value, this.dateFormat);
+            return objDate.isValid();
+        },
+        isValidTimestamp: function (value) {
+            let objDate = moment(value, 'X');
+            return objDate.isValid();
+        },
+        castDate2TimeStamp: function (value) {
+            if (value === '' || value === null) {
+                return value;
+            }
+            if (this.isValidDate(value)) {
+                let objDate = moment(value, this.dateFormat);
+                return objDate.format('X');
+            }
+            return 0;
+        },
+        castTimeStamp2Date: function (value) {
+            if (value === '' || value === null) {
+                return value;
+            }
+            if (this.isValidTimestamp(value)) {
+                let objDate = moment(value, 'X');
+                return objDate.format(this.dateFormat);
+            }
+            return value;
         }
     },
     watch: {
@@ -26,28 +57,60 @@ Vue.component( 'multi-dates-wizard', {
             handler: function (rows) {
                 this.error = '';
                 let arrValues = [];
-                let blnError = false;
-                for ( let i = 0; i < rows.length; i++ ) {
-                    let objRow = rows[i];
-                    let objNewRow = {};
-                    objNewRow.from = objRow.from;
-                    objNewRow.to = objRow.to;
-                    let objFromDate = moment( objRow.from, this.dateFormat );
-                    let objToDate = moment( objRow.to, this.dateFormat );
-                    if ( objFromDate.isValid() && objToDate.isValid() ) {
-                        objNewRow.from = objFromDate.format('X');
-                        objNewRow.to = objToDate.format('X');
-                    } else {
-                        blnError = true;
+                for (let i = 0; i < rows.length; i++) {
+                    let objRow = {};
+                    for (var name in rows[i]) {
+                        if (rows[i].hasOwnProperty(name)) {
+                            switch (name) {
+                                case 'from':
+                                case 'to':
+                                    if (!this.isValidDate(rows[i][name])) {
+                                        this.error = 'Bitte beachten Sie, dass Datumsformat ' + this.dateFormat;
+                                    }
+                                    objRow[name] = this.castDate2TimeStamp(rows[i][name]);
+                                    break;
+                                default:
+                                    objRow[name] = rows[i][name];
+                                    break;
+                            }
+                        }
                     }
-                    arrValues.push( objNewRow );
+                    arrValues.push(objRow);
                 }
-                if ( blnError ) {
-                    this.error = 'Das eingegebene Datum ist ungültig.';
-                }
-                this.value = JSON.stringify( arrValues );
+                this.value = JSON.stringify(arrValues);
             },
             deep: true
+        }
+    },
+    mounted: function () {
+        this.error = '';
+        if ( typeof this.value === 'object' && this.value.length ) {
+            for (let i = 0; i < this.value.length; i++) {
+                let objRow = {};
+                for (var name in this.value[i]) {
+                    if (this.value[i].hasOwnProperty(name)) {
+                        switch (name) {
+                            case 'from':
+                            case 'to':
+                                if (!this.isValidTimestamp(this.value[i][name])) {
+                                    this.error = 'Bitte beachten Sie, dass Datumsformat ' + this.dateFormat;
+                                }
+                                objRow[name] = this.castTimeStamp2Date(this.value[i][name]);
+                                break;
+                            default:
+                                objRow[name] = this.value[i][name];
+                                break;
+                        }
+                    }
+                }
+                this.rows.push(objRow);
+            }
+        }
+        else {
+            this.rows.push({
+                from: null,
+                to: null
+            });
         }
     },
     props: {
@@ -62,36 +125,16 @@ Vue.component( 'multi-dates-wizard', {
         value: {
             type: Array,
             required: true
-        }
-    },
-    mounted: function () {
-        this.error = '';
-        let blnError = false;
-        if ( typeof this.value === 'object' && this.value.length ) {
-            for ( let i = 0; i < this.value.length; i++ ) {
-                let objRow = this.value[i];
-                if ( objRow.hasOwnProperty('from') && objRow.hasOwnProperty('to') ) {
-                    let objFromDate = moment( objRow.from, 'X' );
-                    let objToDate = moment( objRow.to, 'X' );
-                    if ( objFromDate.isValid() && objToDate.isValid() ) {
-                        objRow.from = objFromDate.format( this.dateFormat );
-                        objRow.to = objToDate.format( this.dateFormat );
-                    } else {
-                        blnError = true;
-                    }
-                    this.rows.push(objRow);
-                }
-            }
-        }
-        else {
-            this.rows.push({
-                from: moment().format( this.dateFormat ),
-                to: moment().format( this.dateFormat )
-            });
-        }
-        if ( blnError ) {
-            this.error = 'Bitte geben Sie ein gültiges Datum ein.';
-        }
+        },
+        useDay: {
+            type: Boolean,
+            required: false
+        },
+        dateFormat: {
+            type: String,
+            required: false,
+            default: 'DD.MM.YYYY'
+        },
     },
     template:
         '<div class="multi-dates-wizard-component">' +
@@ -100,6 +143,7 @@ Vue.component( 'multi-dates-wizard', {
                 '<div class="table">' +
                     '<div class="thead">' +
                         '<div class="tr">' +
+                            '<div v-if="useDay" class="th from">Wochentag</div>' +
                             '<div class="th from">Von</div>' +
                             '<div class="th to">Bis</div>' +
                             '<div class="th operation"></div>' +
@@ -107,11 +151,14 @@ Vue.component( 'multi-dates-wizard', {
                     '</div>' +
                     '<draggable v-model="rows" handle=".drag" class="tbody">' +
                         '<div class="tr" v-for="(row, index) in rows">' +
+                            '<div v-if="useDay" class="td day">' +
+                                '<input type="text" v-model="row.day">' +
+                            '</div>' +
                             '<div class="td date from">' +
-                                '<input type="text" v-model="row.from" v-pikaday>' +
+                                '<input type="text" v-model="row.from">' +
                             '</div>' +
                             '<div class="td date to">' +
-                                '<input type="text" v-model="row.to" v-pikaday="{ minDate: row.from }">' +
+                                '<input type="text" v-model="row.to">' +
                             '</div>' +
                             '<div class="td operations">' +
                                 '<button type="button" class="add" @click="addDate(row, index)"><img src="/system/themes/flexible/icons/copy.svg" alt="Hinzufügen"></button>' +
@@ -121,7 +168,7 @@ Vue.component( 'multi-dates-wizard', {
                         '</div>' +
                     '</draggable>' +
                 '</div>' +
-                '<p class="error" v-if="error">{{ error }}</p>' +
+                '<p class="error" v-if="error" v-html="">{{ error }}</p>' +
             '</div>' +
         '</div>'
 });
