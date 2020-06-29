@@ -21,7 +21,6 @@ Vue.component( 'combo-wizard', {
                 if ( objResponse.body ) {
                     this.options = objResponse.body.options;
                     this.options2 = objResponse.body.options2;
-                    console.log(this.options)
                 }
             });
         },

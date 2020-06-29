@@ -48,10 +48,9 @@ class ComboWizard extends \Widget {
         $objTemplate->name = $this->name;
         $objTemplate->id = \Input::get('id');
         $objTemplate->table = $this->strTable;
-        $objTemplate->value = $this->value ?: '"[{}]"';
+        $objTemplate->value = $this->value ? \Alnv\ContaoWidgetCollectionBundle\Helpers\Toolkit::parseJSObject($this->value) : '"[{}]"';
         $objTemplate->enableGroup = $this->enableGroup ? 'true' : 'false';
         $objTemplate->enableField = $this->enableField ? 'true' : 'false';
-
         return $objTemplate->parse();
     }
 }

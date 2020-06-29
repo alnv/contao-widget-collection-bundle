@@ -33,36 +33,41 @@ class Toolkit {
         return $objActiveRecord;
     }
 
-    public static function decodeJson( $strJson, $arrMap = [] ) {
+    public static function decodeJson($strJson, $arrMap = []) {
 
-        if ( !$strJson ) {
+        if (!$strJson) {
             return [];
         }
 
-        $arrJson = json_decode( $strJson, true );
+        $arrJson = json_decode($strJson, true);
 
-        if ( !is_array( $arrJson ) || empty( $arrJson ) ) {
+        if (!is_array($arrJson) || empty($arrJson)) {
             return [];
         }
 
         $arrReturn = [];
 
-        foreach ( $arrJson as $arrOptions ) {
+        foreach ($arrJson as $arrOptions) {
             $arrOption = [];
-            foreach ( $arrOptions as $strKey => $strValue ) {
-                if ( $strValue === null ) {
+            foreach ($arrOptions as $strKey => $strValue) {
+                if ($strValue === null) {
                     continue;
                 }
-                $strKey = $arrMap[ $strKey ] ?: $strKey;
-                $arrOption[ $strKey ] = (string) $strValue;
+                $strKey = $arrMap[$strKey] ?: $strKey;
+                $arrOption[$strKey] = (string) $strValue;
             }
 
-            if ( empty( $arrOption ) ) {
+            if (empty($arrOption)) {
                 continue;
             }
             $arrReturn[] = $arrOption;
         }
 
         return $arrReturn;
+    }
+
+    public static function parseJSObject($varObject) {
+
+        return htmlspecialchars($varObject,ENT_QUOTES,'UTF-8');
     }
 }
