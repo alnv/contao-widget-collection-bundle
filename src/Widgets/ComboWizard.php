@@ -43,12 +43,11 @@ class ComboWizard extends \Widget {
 
 
     public function generate() {
-
         $objTemplate = new \FrontendTemplate( 'form_combo_wizard' );
         $objTemplate->name = $this->name;
         $objTemplate->id = \Input::get('id');
         $objTemplate->table = $this->strTable;
-        $objTemplate->value = $this->value ? \Alnv\ContaoWidgetCollectionBundle\Helpers\Toolkit::parseJSObject($this->value) : '"[{}]"';
+        $objTemplate->value = $this->value ? \Alnv\ContaoWidgetCollectionBundle\Helpers\Toolkit::parseJSObject($this->value) : '[{}]';
         $objTemplate->enableGroup = $this->enableGroup ? 'true' : 'false';
         $objTemplate->enableField = $this->enableField ? 'true' : 'false';
         return $objTemplate->parse();
