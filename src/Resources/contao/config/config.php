@@ -15,8 +15,8 @@ $objWidgetsAssetsManager->addIfNotExist( 'bundles/alnvcontaowidgetcollection/lib
 $objWidgetsAssetsManager->addIfNotExist( 'bundles/alnvcontaowidgetcollection/libs/sorting/sortable.min.js' );
 $objWidgetsAssetsManager->addIfNotExist( 'bundles/alnvcontaowidgetcollection/libs/sorting/vuedraggable.min.js' );
 $objWidgetsAssetsManager->addIfNotExist( 'bundles/alnvcontaowidgetcollection/libs/moment/moment.min.js' );
-$objWidgetsAssetsManager->addIfNotExist( 'bundles/alnvcontaowidgetcollection/libs/pikaday/pikaday.min.js' );
-$objWidgetsAssetsManager->addIfNotExist( 'bundles/alnvcontaowidgetcollection/components/pikaday-directive.js' );
+// $objWidgetsAssetsManager->addIfNotExist( 'bundles/alnvcontaowidgetcollection/libs/pikaday/pikaday.min.js' );
+// $objWidgetsAssetsManager->addIfNotExist( 'bundles/alnvcontaowidgetcollection/components/pikaday-directive.js' );
 $objWidgetsAssetsManager->addIfNotExist( 'bundles/alnvcontaowidgetcollection/components/combo-wizard-component.js' );
 $objWidgetsAssetsManager->addIfNotExist( 'bundles/alnvcontaowidgetcollection/components/ajax-select-menu-component.js' );
 $objWidgetsAssetsManager->addIfNotExist( 'bundles/alnvcontaowidgetcollection/components/multi-dates-wizard-component.js' );
@@ -24,7 +24,7 @@ $objWidgetsAssetsManager->addIfNotExist( 'bundles/alnvcontaowidgetcollection/com
 
 $objCssCombiner = new \Combiner();
 $objCssCombiner->add( 'bundles/alnvcontaowidgetcollection/libs/vue-select/vue-select.scss' );
-$objCssCombiner->add( 'bundles/alnvcontaowidgetcollection/libs/pikaday/pikaday.min.css' );
+// $objCssCombiner->add( 'bundles/alnvcontaowidgetcollection/libs/pikaday/pikaday.min.css' );
 $objCssCombiner->add( 'bundles/alnvcontaowidgetcollection/css/combo-wizard.scss' );
 $objCssCombiner->add( 'bundles/alnvcontaowidgetcollection/css/multi-dates-wizard.scss' );
 $objCssCombiner->add( 'bundles/alnvcontaowidgetcollection/libs/nouislider/nouislider.min.css' );
