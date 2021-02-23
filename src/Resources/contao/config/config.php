@@ -36,14 +36,18 @@ if (\Config::get('doNotUseWidgetStylesNScriptsInFrontend') && TL_MODE == 'FE') {
 
 $objCssCombiner = new \Combiner();
 $objWidgetsAssetsManager = \Alnv\ContaoAssetsManagerBundle\Library\AssetsManager::getInstance();
-foreach ($GLOBALS['CM_WIDGET_SCRIPT_N_STYLES']['SCRIPTS'] as $strScript) {
-    $objWidgetsAssetsManager->addIfNotExist($strScript);
+if (!empty($GLOBALS['CM_WIDGET_SCRIPT_N_STYLES']['SCRIPTS'])) {
+    foreach ($GLOBALS['CM_WIDGET_SCRIPT_N_STYLES']['SCRIPTS'] as $strScript) {
+        $objWidgetsAssetsManager->addIfNotExist($strScript);
+    }
 }
 foreach ($GLOBALS['CM_WIDGET_SCRIPT_N_STYLES']['STYLES'] as $strStyle) {
     $objCssCombiner->add($strStyle);
 }
-if ($strCombinedStyles = $objCssCombiner->getCombinedFile()) {
-    $GLOBALS['TL_CSS']['widget-collection-bundle'] = $strCombinedStyles;
+if (!empty($GLOBALS['CM_WIDGET_SCRIPT_N_STYLES']['STYLES'])) {
+    if ($strCombinedStyles = $objCssCombiner->getCombinedFile()) {
+        $GLOBALS['TL_CSS']['widget-collection-bundle'] = $strCombinedStyles;
+    }
 }
 // $objWidgetsAssetsManager = \Alnv\ContaoAssetsManagerBundle\Library\AssetsManager::getInstance();
 // $objWidgetsAssetsManager->addIfNotExist( 'bundles/alnvcontaowidgetcollection/libs/vue-select/vue-select.js' );
