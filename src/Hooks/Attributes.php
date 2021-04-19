@@ -41,7 +41,7 @@ class Attributes extends \Controller {
 
                 if ( $arrAttributes['includeBlankOption'] && !$arrAttributes['multiple'] ) {
 
-                    $strLabel = $arrAttributes['blankOptionLabel'] ?? '-';
+                    $strLabel = \Controller::replaceInsertTags($arrAttributes['blankOptionLabel']) ?? '-';
                     $arrAttributes['options2'][] = [ 'value' => '', 'label' => $strLabel  ];
                 }
 
