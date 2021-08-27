@@ -22,10 +22,14 @@ class ComboWizard extends \Widget {
         parent::validate();
     }
 
-    protected function hasValue( $strJson ) {
+    protected function hasValue($strJson) {
 
         if (!$strJson) {
             return false;
+        }
+
+        if (is_string($strJson)) {
+            $strJson = \StringUtil::decodeEntities($strJson);
         }
 
         $arrJson = json_decode($strJson, true);
@@ -43,6 +47,7 @@ class ComboWizard extends \Widget {
 
 
     public function generate() {
+
         $objTemplate = new \FrontendTemplate( 'form_combo_wizard' );
         $objTemplate->name = $this->name;
         $objTemplate->id = \Input::get('id');
@@ -50,6 +55,7 @@ class ComboWizard extends \Widget {
         $objTemplate->value = $this->value ? \Alnv\ContaoWidgetCollectionBundle\Helpers\Toolkit::parseJSObject($this->value) : '[{}]';
         $objTemplate->enableGroup = $this->enableGroup ? 'true' : 'false';
         $objTemplate->enableField = $this->enableField ? 'true' : 'false';
+
         return $objTemplate->parse();
     }
 }

@@ -68,6 +68,10 @@ class Toolkit {
 
     public static function parseJSObject($varObject) {
 
+        if (is_string($varObject)) {
+            $varObject = \StringUtil::decodeEntities($varObject);
+        }
+
         return htmlspecialchars($varObject,ENT_QUOTES,'UTF-8');
     }
 }
