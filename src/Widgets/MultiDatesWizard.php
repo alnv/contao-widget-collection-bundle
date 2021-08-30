@@ -18,11 +18,17 @@ class MultiDatesWizard extends \Widget {
             return false;
         }
 
-        $arrJson = json_decode( $strJson, true );
-        if ( !is_array($arrJson) || empty($arrJson)) {
+        if (is_string($strJson)) {
+            $strJson = \StringUtil::decodeEntities($strJson);
+        }
+
+        $arrJson = json_decode($strJson, true);
+
+        if (!is_array($arrJson) || empty($arrJson)) {
             return false;
         }
-        if ( isset($arrJson[0]) && $arrJson[0]['to'] === null || $arrJson[0]['from'] === '') {
+        
+        if (isset($arrJson[0]) && $arrJson[0]['to'] === null || $arrJson[0]['from'] === '') {
             return false;
         }
 
