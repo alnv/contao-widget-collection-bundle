@@ -12,14 +12,17 @@ class MultiDatesWizard extends \Widget {
         parent::__set( $strKey, $varValue );
     }
 
+    public function validator($varInput) {
+
+        $varInput = parent::validator($varInput);
+
+        return \StringUtil::decodeEntities($varInput);
+    }
+
     protected function hasValue( $strJson ) {
 
         if (!$strJson) {
             return false;
-        }
-
-        if (is_string($strJson)) {
-            $strJson = \StringUtil::decodeEntities($strJson);
         }
 
         $arrJson = json_decode($strJson, true);
@@ -38,7 +41,12 @@ class MultiDatesWizard extends \Widget {
     public function validate() {
 
         $varValue = $this->getPost($this->strName);
-        if ( $this->mandatory && !$this->hasValue($varValue)) {
+
+        if (is_string($varValue)) {
+            $varValue = \StringUtil::decodeEntities($varValue);
+        }
+
+        if ($this->mandatory && !$this->hasValue($varValue)) {
             $this->addError(sprintf($GLOBALS['TL_LANG']['ERR']['mandatory'], $this->strLabel));
         }
 

@@ -7,14 +7,26 @@ class ComboWizard extends \Widget {
     protected $blnSubmitInput = true;
     protected $strTemplate = 'be_widget';
 
-    public function __set( $strKey, $varValue ) {
+    public function __set($strKey, $varValue) {
 
-        parent::__set( $strKey, $varValue );
+        parent::__set($strKey, $varValue);
+    }
+
+    public function validator($varInput) {
+
+        $varInput = parent::validator($varInput);
+
+        return \StringUtil::decodeEntities($varInput);
     }
 
     public function validate() {
 
         $varValue = $this->getPost($this->strName);
+
+        if (is_string($varValue)) {
+            $varValue = \StringUtil::decodeEntities($varValue);
+        }
+
         if ($this->mandatory && !$this->hasValue($varValue)) {
             $this->addError(sprintf($GLOBALS['TL_LANG']['ERR']['mandatory'], $this->strLabel));
         }
@@ -26,10 +38,6 @@ class ComboWizard extends \Widget {
 
         if (!$strJson) {
             return false;
-        }
-
-        if (is_string($strJson)) {
-            $strJson = \StringUtil::decodeEntities($strJson);
         }
 
         $arrJson = json_decode($strJson, true);
