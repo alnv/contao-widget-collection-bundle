@@ -8,10 +8,15 @@ class Toolkit {
 
         \Controller::loadDataContainer($strTable);
         \System::loadLanguageFile($strTable);
+
+        if (strpos($strFieldname, '[') !== false && strpos($strFieldname, ']') !== false) {
+            $strFieldname = strtok($strFieldname, '[');
+        }
+
         $objVDataContainer = new VDataContainer();
-        $objVDataContainer->activeRecord = static::getActiveRecordFromRouting($strTable,$strId);
-        $arrField = \Widget::getAttributesFromDca($GLOBALS['TL_DCA'][$strTable]['fields'][$strFieldname], $strFieldname, '', $strFieldname, $strTable, $objVDataContainer);
-        return $arrField;
+        $objVDataContainer->activeRecord = static::getActiveRecordFromRouting($strTable, $strId);
+
+        return \Widget::getAttributesFromDca($GLOBALS['TL_DCA'][$strTable]['fields'][$strFieldname], $strFieldname, '', $strFieldname, $strTable, $objVDataContainer);
     }
 
     protected static function getActiveRecordFromRouting($strTable=null,$strId=null) {

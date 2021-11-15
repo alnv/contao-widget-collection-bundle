@@ -15,8 +15,7 @@ class MainController extends \Contao\CoreBundle\Controller\AbstractController {
 
     /**
      *
-     * @Route("/ajax-select-options", name="ajaxSelectOptions")
-     * @Method({"GET"})
+     * @Route("/ajax-select-options", methods={"GET"}, name="ajaxSelectOptions")
      */
     public function getAjaxSelectOptions() {
 
@@ -46,13 +45,13 @@ class MainController extends \Contao\CoreBundle\Controller\AbstractController {
 
     /**
      *
-     * @Route("/combo-wizard", name="fetchComboWizard")
-     * @Method({"POST"})
+     * @Route("/combo-wizard", methods={"POST"}, name="fetchComboWizard")
      */
     public function fetchComboWizard(Request $objRequest) {
 
         $this->container->get('contao.framework')->initialize();
         \System::loadLanguageFile('default', $objRequest->request->get('language'));
-        return new JsonResponse(\Alnv\ContaoWidgetCollectionBundle\Helpers\Toolkit::getEvalByTableAndFieldname($objRequest->request->get('table'),$objRequest->request->get('name'),$objRequest->request->get('id')));
+
+        return new JsonResponse(\Alnv\ContaoWidgetCollectionBundle\Helpers\Toolkit::getEvalByTableAndFieldname($objRequest->request->get('table'), $objRequest->request->get('name'), $objRequest->request->get('id')));
     }
 }

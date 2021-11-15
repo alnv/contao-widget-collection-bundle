@@ -53,10 +53,9 @@ class ComboWizard extends \Widget {
         return true;
     }
 
-
     public function generate() {
 
-        $objTemplate = new \FrontendTemplate( 'form_combo_wizard' );
+        $objTemplate = new \FrontendTemplate('form_combo_wizard');
         $objTemplate->name = $this->name;
         $objTemplate->id = \Input::get('id');
         $objTemplate->table = $this->strTable;

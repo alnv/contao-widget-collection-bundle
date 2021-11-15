@@ -2,69 +2,74 @@
 
 namespace Alnv\ContaoWidgetCollectionBundle\Hooks;
 
-
 class Attributes extends \Controller {
 
+    public function getAttributesFromDca($arrAttributes, $objDca) {
 
-    public function getAttributesFromDca( $arrAttributes, $objDca ) {
-
-        if ( $arrAttributes['type'] == 'comboWizard' ) {
+        if ($arrAttributes['type'] == 'comboWizard' || $arrAttributes['options2_callback']) {
 
             $arrAttributes['options2'] = $arrAttributes['options2'] ?: [];
-            $arrOptions = [];
 
-            if (is_array( $arrAttributes['options2_callback'] ) ) {
-
+            if (is_array($arrAttributes['options2_callback'])) {
                 $arrCallback = $arrAttributes['options2_callback'];
-                $arrOptions = static::importStatic( $arrCallback[0] )->{ $arrCallback[1] }( $objDca );
-
-            } elseif ( is_callable( $arrAttributes['options2_callback'] ) ) {
-
-                $arrOptions = $arrAttributes['options2_callback']( $objDca );
-
-            } elseif ( isset( $arrAttributes['foreignKey2'] ) ) {
-
-                $arrKey = explode( '.', $arrAttributes['foreignKey2'], 2 );
+                $arrOptions = static::importStatic( $arrCallback[0] )->{$arrCallback[1]}($objDca);
+                $this->parseOptions($arrOptions, 'options2', $arrAttributes);
+            } elseif (is_callable($arrAttributes['options2_callback'])) {
+                $arrOptions = $arrAttributes['options2_callback']($objDca);
+                $this->parseOptions($arrOptions, 'options2', $arrAttributes);
+            } elseif (isset($arrAttributes['foreignKey2'])) {
+                $arrKey = explode('.', $arrAttributes['foreignKey2'], 2);
                 $objOptions = \Database::getInstance()->query("SELECT id, " . $arrKey[1] . " AS value FROM " . $arrKey[0] . " WHERE tstamp>0 ORDER BY value");
                 $arrOptions = [];
-
-                while ( $objOptions->next() ) {
-
+                while ($objOptions->next()) {
                     $arrOptions[$objOptions->id] = $objOptions->value;
                 }
+                $this->parseOptions($arrOptions, 'options2', $arrAttributes);
             }
 
-            if ( is_array( $arrOptions ) ) {
-
-                $blnIsAssociative = ( $arrAttributes['isAssociative'] || array_is_assoc( $arrOptions ));
-                $blnUseReference = isset( $arrAttributes['reference'] );
-
-                if ( $arrAttributes['includeBlankOption'] && !$arrAttributes['multiple'] ) {
-
-                    $strLabel = \Controller::replaceInsertTags($arrAttributes['blankOptionLabel']) ?? '-';
-                    $arrAttributes['options2'][] = [ 'value' => '', 'label' => $strLabel  ];
-                }
-
-                foreach ( $arrOptions as $k => $v ) {
-
-                    if ( !is_array( $v ) ) {
-
-                        $arrAttributes['options2'][] = ['value'=>($blnIsAssociative ? $k : $v), 'label'=>($blnUseReference ? ((($ref = (is_array($arrAttributes['reference'][$v]) ? $arrAttributes['reference'][$v][0] : $arrAttributes['reference'][$v])) != false) ? $ref : $v) : $v)];
-
-                        continue;
-                    }
-
-                    $key = $blnUseReference ? ((($ref = (is_array($arrAttributes['reference2'][$k]) ? $arrAttributes['reference'][$k][0] : $arrAttributes['reference'][$k])) != false) ? $ref : $k) : $k;
-                    $blnIsAssoc = array_is_assoc($v);
-
-                    foreach ( $v as $kk=>$vv ) {
-
-                        $arrAttributes['options2'][$key][] = ['value'=>($blnIsAssoc ? $kk : $vv), 'label'=>($blnUseReference ? ((($ref = (\is_array($arrAttributes['reference'][$vv]) ? $arrAttributes['reference'][$vv][0] : $arrAttributes['reference'][$vv])) != false) ? $ref : $vv) : $vv)];
-                    }
+            if (!isset($arrAttributes['options']) && $arrAttributes['options_callback']) {
+                if (is_array($arrAttributes['options_callback'])) {
+                    $arrCallback = $arrAttributes['options_callback'];
+                    $arrOptions = static::importStatic( $arrCallback[0] )->{ $arrCallback[1] }($objDca);
+                    $this->parseOptions($arrOptions, 'options', $arrAttributes);
+                } elseif (is_callable($arrAttributes['options_callback'])) {
+                    $arrOptions = $arrAttributes['options_callback']($objDca);
+                    $this->parseOptions($arrOptions, 'options', $arrAttributes);
                 }
             }
+
         }
 
         return $arrAttributes;
+    }
+
+    protected function parseOptions($arrOptions, $strKey, &$arrAttributes) {
+
+        if (empty($arrOptions)) {
+            return null;
+        }
+
+        $blnIsAssociative = ($arrAttributes['isAssociative'] || array_is_assoc($arrOptions));
+        $blnUseReference = isset($arrAttributes['reference']);
+
+        if ($arrAttributes['includeBlankOption'] && !$arrAttributes['multiple']) {
+            $strLabel = \Controller::replaceInsertTags($arrAttributes['blankOptionLabel']) ?? '-';
+            $arrAttributes[$strKey][] = ['value' => '', 'label' => $strLabel];
+        }
+
+        foreach ($arrOptions as $k => $v) {
+
+            if (!is_array($v)) {
+                $arrAttributes[$strKey][] = ['value'=>($blnIsAssociative ? $k : $v), 'label'=>($blnUseReference ? ((($ref = (is_array($arrAttributes['reference'][$v]) ? $arrAttributes['reference'][$v][0] : $arrAttributes['reference'][$v])) != false) ? $ref : $v) : $v)];
+                continue;
+            }
+
+            $key = $blnUseReference ? ((($ref = (is_array($arrAttributes['reference2'][$k]) ? $arrAttributes['reference'][$k][0] : $arrAttributes['reference'][$k])) != false) ? $ref : $k) : $k;
+            $blnIsAssoc = array_is_assoc($v);
+
+            foreach ($v as $kk=>$vv) {
+                $arrAttributes[$strKey][$key][] = ['value'=>($blnIsAssoc ? $kk : $vv), 'label'=>($blnUseReference ? ((($ref = (\is_array($arrAttributes['reference'][$vv]) ? $arrAttributes['reference'][$vv][0] : $arrAttributes['reference'][$vv])) != false) ? $ref : $vv) : $vv)];
+            }
+        }
     }
 }

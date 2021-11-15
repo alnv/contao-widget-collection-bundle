@@ -9,7 +9,7 @@ Vue.component( 'combo-wizard', {
     },
     methods: {
         fetch: function () {
-            this.$http.post( '/widget-collection/combo-wizard', {
+            this.$http.post('/widget-collection/combo-wizard', {
                 language: this.language,
                 table: this.table,
                 name: this.name,
@@ -41,7 +41,7 @@ Vue.component( 'combo-wizard', {
             if (select['option4']) {
                 return false;
             }
-            for (var i = index; i >= 0; i-- ) {
+            for (let i = index; i >= 0; i--) {
                 if (this.selected[i]['option4']) {
                     return true;
                 }
