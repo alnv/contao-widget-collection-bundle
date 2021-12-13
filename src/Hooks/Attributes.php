@@ -6,7 +6,7 @@ class Attributes extends \Controller {
 
     public function getAttributesFromDca($arrAttributes, $objDca) {
 
-        if ($arrAttributes['type'] == 'comboWizard' || $arrAttributes['options2_callback']) {
+        if ($arrAttributes['type'] == 'comboWizard' || (isset($arrAttributes['options2_callback']) && $arrAttributes['options2_callback'])) {
 
             $arrAttributes['options2'] = $arrAttributes['options2'] ?: [];
 
