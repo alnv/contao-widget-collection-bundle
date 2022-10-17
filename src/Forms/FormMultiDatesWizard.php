@@ -14,7 +14,6 @@ class FormMultiDatesWizard extends \Widget {
         switch ($strKey) {
             case 'value':
                 return $this->varValue ?: '"[]"';
-                break;
         }
 
         return parent::__get($strKey);

@@ -1,20 +1,20 @@
-Vue.component( 'v-select', VueSelect.VueSelect );
-Vue.component( 'ajax-select-menu', {
+Vue.component('v-select', VueSelect.VueSelect);
+Vue.component('ajax-select-menu', {
     data: function () {
         return {
             options: []
         }
     },
     methods: {
-        fetchOptions: function ( search ) {
+        fetchOptions: function (search) {
             this.$http.get( '/widget-collection/ajax-select-options', {
                 params: {
                     id: this.id,
                     search: search,
                     name: this.name
                 }
-            }).then( function ( objResponse ) {
-                if ( objResponse.body ) {
+            }).then(function (objResponse) {
+                if (objResponse.body) {
                     this.options = objResponse.body.options;
                 }
             });
@@ -50,8 +50,8 @@ Vue.component( 'ajax-select-menu', {
         }
     },
     mounted: function () {
-        if ( this.value ) {
-            this.fetchOptions( this.value );
+        if (this.value) {
+            this.fetchOptions(this.value);
         }
     },
     template:
