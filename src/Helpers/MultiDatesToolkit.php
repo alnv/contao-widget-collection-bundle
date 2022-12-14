@@ -17,7 +17,7 @@ class MultiDatesToolkit {
             return $arrReturn;
         }
 
-        $arrDates = Toolkit::decodeJson( $strJson, [
+        $arrDates = Toolkit::decodeJson($strJson, [
             'option' => 'from',
             'option2' => 'to'
         ]);
@@ -65,24 +65,21 @@ class MultiDatesToolkit {
             }
         }
 
-        return static::parseDates( $arrReturn );
+        return static::parseDates($arrReturn);
     }
 
 
-    public static function parseDates( $varValues, $strFormat = '' ) {
+    public static function parseDates($varValues, $strFormat = '') {
 
         $arrReturn = [];
 
-        if ( !$strFormat ) {
-
+        if (!$strFormat) {
             global $objPage;
-
             $strFormat = $objPage->dateFormat;
         }
 
-        if ( !is_array( $varValues ) && is_string( $varValues ) ) {
-
-            $varValues = Toolkit::decodeJson( $varValues, [
+        if (!is_array($varValues) && is_string($varValues)) {
+            $varValues = Toolkit::decodeJson($varValues, [
                 'option' => 'from',
                 'option2' => 'to'
             ]);

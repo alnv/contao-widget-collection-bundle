@@ -38,7 +38,7 @@ class Toolkit {
         return $objActiveRecord;
     }
 
-    public static function decodeJson($strJson, $arrMap = []) {
+    public static function decodeJson($strJson, $arrMap=[]) {
 
         if (!$strJson) {
             return [];
@@ -53,18 +53,22 @@ class Toolkit {
         $arrReturn = [];
 
         foreach ($arrJson as $arrOptions) {
+
             $arrOption = [];
+
             foreach ($arrOptions as $strKey => $strValue) {
                 if ($strValue === null) {
                     continue;
                 }
-                $strKey = $arrMap[$strKey] ?: $strKey;
+                $_strKey = $arrMap[$strKey] ?? '';
+                $strKey = $_strKey ?: $strKey;
                 $arrOption[$strKey] = (string) $strValue;
             }
 
             if (empty($arrOption)) {
                 continue;
             }
+
             $arrReturn[] = $arrOption;
         }
 
