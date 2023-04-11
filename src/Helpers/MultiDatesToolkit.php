@@ -42,7 +42,10 @@ class MultiDatesToolkit {
 
         foreach ( $arrDates as $arrDate ) {
 
-            if ( !$arrDate['from'] || !$arrDate['to'] ) {
+            $arrDate['from'] = $arrDate['from'] ?? '';
+            $arrDate['to'] = $arrDate['to'] ?? '';
+            
+            if (!$arrDate['from'] || !$arrDate['to']) {
 
                 continue;
             }
