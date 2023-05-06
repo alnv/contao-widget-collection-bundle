@@ -1,5 +1,11 @@
 <?php
 
+use Alnv\ContaoAssetsManagerBundle\Library\AssetsManager;
+use Contao\Combiner;
+use Contao\Config;
+use Contao\System;
+use Symfony\Component\HttpFoundation\Request;
+
 $GLOBALS['BE_FFL']['comboWizard'] = 'Alnv\ContaoWidgetCollectionBundle\Widgets\ComboWizard';
 $GLOBALS['BE_FFL']['multiDatesWizard'] = 'Alnv\ContaoWidgetCollectionBundle\Widgets\MultiDatesWizard';
 
@@ -7,7 +13,7 @@ $GLOBALS['TL_FFL']['nouislider'] = 'Alnv\ContaoWidgetCollectionBundle\Forms\Form
 $GLOBALS['TL_FFL']['ajaxSelect'] = 'Alnv\ContaoWidgetCollectionBundle\Forms\FormAjaxSelectMenu';
 $GLOBALS['TL_FFL']['multiDatesWizard'] = 'Alnv\ContaoWidgetCollectionBundle\Forms\FormMultiDatesWizard';
 
-$GLOBALS['TL_HOOKS']['getAttributesFromDca'][] = [ 'Alnv\ContaoWidgetCollectionBundle\Hooks\Attributes', 'getAttributesFromDca' ];
+$GLOBALS['TL_HOOKS']['getAttributesFromDca'][] = ['Alnv\ContaoWidgetCollectionBundle\Hooks\Attributes', 'getAttributesFromDca'];
 
 $GLOBALS['CM_WIDGET_SCRIPT_N_STYLES'] = [
     'SCRIPTS' => [
@@ -29,14 +35,14 @@ $GLOBALS['CM_WIDGET_SCRIPT_N_STYLES'] = [
     ]
 ];
 
-if (\Config::get('doNotUseWidgetStylesNScriptsInFrontend') && TL_MODE == 'FE') {
+if (Config::get('doNotUseWidgetStylesNScriptsInFrontend') && System::getContainer()->get('contao.routing.scope_matcher')->isFrontendRequest(System::getContainer()->get('request_stack')->getCurrentRequest() ?? Request::create(''))) {
     $GLOBALS['CM_WIDGET_SCRIPT_N_STYLES']['SCRIPTS'] = [];
     $GLOBALS['CM_WIDGET_SCRIPT_N_STYLES']['STYLES'] = [];
 }
 
 if (class_exists('Alnv\ContaoAssetsManagerBundle\Library\AssetsManager')) {
-    $objCssCombiner = new \Combiner();
-    $objWidgetsAssetsManager = \Alnv\ContaoAssetsManagerBundle\Library\AssetsManager::getInstance();
+    $objCssCombiner = new Combiner();
+    $objWidgetsAssetsManager = AssetsManager::getInstance();
     if (!empty($GLOBALS['CM_WIDGET_SCRIPT_N_STYLES']['SCRIPTS'])) {
         foreach ($GLOBALS['CM_WIDGET_SCRIPT_N_STYLES']['SCRIPTS'] as $strScript) {
             $objWidgetsAssetsManager->addIfNotExist($strScript);

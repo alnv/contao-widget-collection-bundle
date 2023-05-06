@@ -2,14 +2,20 @@
 
 namespace Alnv\ContaoWidgetCollectionBundle\Forms;
 
-class FormMultiDatesWizard extends \Widget {
+use Contao\Widget;
+
+class FormMultiDatesWizard extends Widget
+{
 
     protected $blnSubmitInput = true;
     protected $blnForAttribute = true;
+
     protected $strTemplate = 'form_multi_dates_wizard';
+
     protected $strPrefix = 'widget multi-dates-wizard';
 
-    public function __get($strKey) {
+    public function __get($strKey)
+    {
 
         switch ($strKey) {
             case 'value':
@@ -19,7 +25,8 @@ class FormMultiDatesWizard extends \Widget {
         return parent::__get($strKey);
     }
 
-    public function __set($strKey, $varValue) {
+    public function __set($strKey, $varValue)
+    {
 
         switch ($strKey) {
             case 'value':
@@ -30,7 +37,8 @@ class FormMultiDatesWizard extends \Widget {
         parent::__set($strKey, $varValue);
     }
 
-    public function generate() {
+    public function generate()
+    {
         //
     }
 }

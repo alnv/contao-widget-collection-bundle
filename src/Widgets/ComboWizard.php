@@ -2,29 +2,39 @@
 
 namespace Alnv\ContaoWidgetCollectionBundle\Widgets;
 
-class ComboWizard extends \Widget {
+use Alnv\ContaoWidgetCollectionBundle\Helpers\Toolkit;
+use Contao\FrontendTemplate;
+use Contao\Input;
+use Contao\StringUtil;
+use Contao\Widget;
+
+class ComboWizard extends Widget
+{
 
     protected $blnSubmitInput = true;
     protected $strTemplate = 'be_widget';
 
-    public function __set($strKey, $varValue) {
+    public function __set($strKey, $varValue)
+    {
 
         parent::__set($strKey, $varValue);
     }
 
-    public function validator($varInput) {
+    public function validator($varInput)
+    {
 
         $varInput = parent::validator($varInput);
 
-        return \StringUtil::decodeEntities($varInput);
+        return StringUtil::decodeEntities($varInput);
     }
 
-    public function validate() {
+    public function validate()
+    {
 
         $varValue = $this->getPost($this->strName);
 
         if (is_string($varValue)) {
-            $varValue = \StringUtil::decodeEntities($varValue);
+            $varValue = StringUtil::decodeEntities($varValue);
         }
 
         if ($this->mandatory && !$this->hasValue($varValue)) {
@@ -34,7 +44,8 @@ class ComboWizard extends \Widget {
         parent::validate();
     }
 
-    protected function hasValue($strJson) {
+    protected function hasValue($strJson)
+    {
 
         if (!$strJson) {
             return false;
@@ -53,13 +64,14 @@ class ComboWizard extends \Widget {
         return true;
     }
 
-    public function generate() {
+    public function generate()
+    {
 
-        $objTemplate = new \FrontendTemplate('form_combo_wizard');
+        $objTemplate = new FrontendTemplate('form_combo_wizard');
         $objTemplate->name = $this->name;
-        $objTemplate->id = \Input::get('id');
+        $objTemplate->id = Input::get('id');
         $objTemplate->table = $this->strTable;
-        $objTemplate->value = $this->value ? \Alnv\ContaoWidgetCollectionBundle\Helpers\Toolkit::parseJSObject($this->value) : '[{}]';
+        $objTemplate->value = $this->value ? Toolkit::parseJSObject($this->value) : '[{}]';
         $objTemplate->enableGroup = $this->enableGroup ? 'true' : 'false';
         $objTemplate->enableField = $this->enableField ? 'true' : 'false';
 

@@ -16,25 +16,19 @@
       "Alnv\\ContaoWidgetCollectionBundle\\": "src/"
     },
     "classmap": [
-      "src/Resources/contao/"
+      "contao/"
     ],
     "exclude-from-classmap": [
-      "src/Resources/contao/config/"
+      "contao/config/"
     ]
   },
   "require": {
-    "contao/core-bundle":"~4.9",
-    "sensio/framework-extra-bundle": "^5.2"
+    "contao/core-bundle":"~5.1"
   },
   "config": {
     "preferred-install": "dist"
   },
   "extra": {
-    "contao": {
-      "sources": {
-        "": "system/modules/contao-widget-collection-bundle"
-      }
-    },
     "contao-manager-plugin": "Alnv\\ContaoWidgetCollectionBundle\\ContaoManager\\Plugin"
   }
 }

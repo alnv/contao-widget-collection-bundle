@@ -2,24 +2,33 @@
 
 namespace Alnv\ContaoWidgetCollectionBundle\Widgets;
 
-class MultiDatesWizard extends \Widget {
+use Contao\FrontendTemplate;
+use Contao\Input;
+use Contao\StringUtil;
+use Contao\Widget;
+
+class MultiDatesWizard extends Widget
+{
 
     protected $blnSubmitInput = true;
     protected $strTemplate = 'be_widget';
 
-    public function __set( $strKey, $varValue ) {
+    public function __set($strKey, $varValue)
+    {
 
-        parent::__set( $strKey, $varValue );
+        parent::__set($strKey, $varValue);
     }
 
-    public function validator($varInput) {
+    public function validator($varInput)
+    {
 
         $varInput = parent::validator($varInput);
 
-        return \StringUtil::decodeEntities($varInput);
+        return StringUtil::decodeEntities($varInput);
     }
 
-    protected function hasValue( $strJson ) {
+    protected function hasValue($strJson)
+    {
 
         if (!$strJson) {
             return false;
@@ -30,7 +39,7 @@ class MultiDatesWizard extends \Widget {
         if (!is_array($arrJson) || empty($arrJson)) {
             return false;
         }
-        
+
         if (isset($arrJson[0]) && $arrJson[0]['to'] === null || $arrJson[0]['from'] === '') {
             return false;
         }
@@ -38,12 +47,13 @@ class MultiDatesWizard extends \Widget {
         return true;
     }
 
-    public function validate() {
+    public function validate()
+    {
 
         $varValue = $this->getPost($this->strName);
 
         if (is_string($varValue)) {
-            $varValue = \StringUtil::decodeEntities($varValue);
+            $varValue = StringUtil::decodeEntities($varValue);
         }
 
         if ($this->mandatory && !$this->hasValue($varValue)) {
@@ -53,16 +63,17 @@ class MultiDatesWizard extends \Widget {
         parent::validate();
     }
 
-    public function generate() {
+    public function generate()
+    {
 
-        $objTemplate = new \FrontendTemplate('form_multi_dates_wizard');
-        $objTemplate->name = $this->name;
+        $objTemplate = new FrontendTemplate('form_multi_dates_wizard');
         $objTemplate->useDay = $this->useDay ?: false;
         $objTemplate->dateFormat = $this->dateFormat ?: 'DD.MM.YYYY';
         $objTemplate->name = $this->name;
-        $objTemplate->id = \Input::get('id');
+        $objTemplate->id = Input::get('id');
         $objTemplate->table = $this->strTable;
         $objTemplate->value = $this->value ?: '"[]"';
+
         return $objTemplate->parse();
     }
 }

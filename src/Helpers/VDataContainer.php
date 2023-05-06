@@ -2,23 +2,25 @@
 
 namespace Alnv\ContaoWidgetCollectionBundle\Helpers;
 
+use Contao\DataContainer;
 
-class VDataContainer extends \DataContainer {
+class VDataContainer extends DataContainer
+{
 
-
-    public function __construct() {
+    public function __construct()
+    {
 
         parent::__construct();
     }
 
-
-    protected function save( $varValue ) {
+    protected function save($varValue)
+    {
 
         return null;
     }
 
-
-    public function getPalette() {
+    public function getPalette()
+    {
 
         return '';
     }
