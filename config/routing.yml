@@ -1,3 +1,0 @@
-widgetmanager:
-  resource: "@AlnvContaoWidgetCollectionBundle/Controller"
-  type: annotation

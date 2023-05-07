@@ -9,18 +9,21 @@ use Contao\Input;
 use Contao\System;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
-/**
- *
- * @Route("/widget-collection", defaults={"_token_check"=false,"_scope"="backend"})
- */
-class MainController extends AbstractController
+#[Route(
+    path: 'catalog-manager',
+    name: 'widget-collection-backend-controller',
+    defaults: ['_scope' => 'backend']
+)]
+class BackendController extends AbstractController
 {
 
-    /**
-     *
-     * @Route("/ajax-select-options", methods={"GET"}, name="ajaxSelectOptions")
-     */
+    #[Route(
+        path: '/ajax-select-options',
+        methods: ["GET"],
+        name: 'widget-collection-backend-ajaxSelectOptions'
+    )]
     public function getAjaxSelectOptions()
     {
 
@@ -48,10 +51,11 @@ class MainController extends AbstractController
         return new JsonResponse($arrReturn);
     }
 
-    /**
-     *
-     * @Route("/combo-wizard", methods={"POST"}, name="fetchComboWizard")
-     */
+    #[Route(
+        path: '/combo-wizard',
+        methods: ["POST"],
+        name: 'widget-collection-backend-fetchComboWizard'
+    )]
     public function fetchComboWizard(Request $objRequest)
     {
 

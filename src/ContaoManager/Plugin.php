@@ -2,6 +2,8 @@
 
 namespace Alnv\ContaoWidgetCollectionBundle\ContaoManager;
 
+use Alnv\ContaoWidgetCollectionBundle\AlnvContaoWidgetCollectionBundle;
+use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
@@ -17,17 +19,14 @@ class Plugin implements BundlePluginInterface, RoutingPluginInterface
     {
 
         return [
-            BundleConfig::create('Alnv\ContaoWidgetCollectionBundle\AlnvContaoWidgetCollectionBundle')
-                ->setLoadAfter(['Contao\CoreBundle\ContaoCoreBundle', 'Alnv\ContaoAssetsManagerBundle\AlnvContaoAssetsManagerBundle'])
+            BundleConfig::create(AlnvContaoWidgetCollectionBundle::class)
                 ->setReplace(['contao-widget-collection-bundle'])
+                ->setLoadAfter([ContaoCoreBundle::class])
         ];
     }
 
     public function getRouteCollection(LoaderResolverInterface $resolver, KernelInterface $kernel)
     {
-
-        return $resolver
-            ->resolve(__DIR__ . '/../Resources/config/routing.yml')
-            ->load(__DIR__ . '/../Resources/config/routing.yml');
+        return $resolver->resolve('@AlnvContaoWidgetCollectionBundle/src/Controller')->load('@AlnvContaoWidgetCollectionBundle/src/Controller');
     }
 }

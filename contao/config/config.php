@@ -15,6 +15,7 @@ $GLOBALS['TL_FFL']['multiDatesWizard'] = 'Alnv\ContaoWidgetCollectionBundle\Form
 
 $GLOBALS['TL_HOOKS']['getAttributesFromDca'][] = ['Alnv\ContaoWidgetCollectionBundle\Hooks\Attributes', 'getAttributesFromDca'];
 
+/*
 $GLOBALS['CM_WIDGET_SCRIPT_N_STYLES'] = [
     'SCRIPTS' => [
         'bundles/alnvcontaowidgetcollection/libs/vue-select/vue-select.js',
@@ -40,6 +41,7 @@ if (Config::get('doNotUseWidgetStylesNScriptsInFrontend') && System::getContaine
     $GLOBALS['CM_WIDGET_SCRIPT_N_STYLES']['STYLES'] = [];
 }
 
+
 if (class_exists('Alnv\ContaoAssetsManagerBundle\Library\AssetsManager')) {
     $objCssCombiner = new Combiner();
     $objWidgetsAssetsManager = AssetsManager::getInstance();
@@ -57,3 +59,4 @@ if (class_exists('Alnv\ContaoAssetsManagerBundle\Library\AssetsManager')) {
         }
     }
 }
+*/
