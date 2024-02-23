@@ -1,8 +1,0 @@
-services:
-  _defaults:
-    autowire: true
-    autoconfigure: true
-  Alnv\ContaoWidgetCollectionBundle\Controller\MainController:
-    arguments:
-      - '@request_stack'
-    public: true

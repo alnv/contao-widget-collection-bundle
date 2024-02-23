@@ -2,6 +2,7 @@
 
 namespace Alnv\ContaoWidgetCollectionBundle\Helpers;
 
+use Contao\Combiner;
 use Contao\Controller;
 use Contao\Database;
 use Contao\Input;
@@ -48,7 +49,7 @@ class Toolkit
         return $objActiveRecord;
     }
 
-    public static function decodeJson($strJson, $arrMap = [])
+    public static function decodeJson($strJson, $arrMap = []): array
     {
 
         if (!$strJson) {
@@ -94,5 +95,22 @@ class Toolkit
         }
 
         return htmlspecialchars($varObject, ENT_QUOTES, 'UTF-8');
+    }
+
+
+    public static function addVueJsScript(string $var = 'TL_HEAD'): void
+    {
+
+        $objCombiner = new Combiner();
+        $objCombiner->add('bundles/alnvcontaowidgetcollection/libs/vue/vue.min.js');
+        $objCombiner->add('bundles/alnvcontaowidgetcollection/libs/vue/vue-resource.min.js');
+
+        if ($var == 'TL_JAVASCRIPT') {
+
+            $GLOBALS[$var]['_vue'] = $objCombiner->getCombinedFile();
+            return;
+        }
+
+        $GLOBALS[$var]['_vue'] = '<script style="' . $objCombiner->getCombinedFile() . '"></script>';
     }
 }

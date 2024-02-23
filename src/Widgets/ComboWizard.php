@@ -3,6 +3,7 @@
 namespace Alnv\ContaoWidgetCollectionBundle\Widgets;
 
 use Alnv\ContaoWidgetCollectionBundle\Helpers\Toolkit;
+use Contao\Combiner;
 use Contao\FrontendTemplate;
 use Contao\Input;
 use Contao\StringUtil;
@@ -28,7 +29,7 @@ class ComboWizard extends Widget
         return StringUtil::decodeEntities($varInput);
     }
 
-    public function validate()
+    public function validate(): void
     {
 
         $varValue = $this->getPost($this->strName);
@@ -44,7 +45,7 @@ class ComboWizard extends Widget
         parent::validate();
     }
 
-    protected function hasValue($strJson)
+    protected function hasValue($strJson): bool
     {
 
         if (!$strJson) {
@@ -64,8 +65,26 @@ class ComboWizard extends Widget
         return true;
     }
 
-    public function generate()
+    protected function setResources(): void
     {
+
+        $objCombiner = new Combiner();
+        $objCombiner->add('bundles/alnvcontaowidgetcollection/libs/vue-select/vue-select.js');
+        $objCombiner->add('bundles/alnvcontaowidgetcollection/components/combo-wizard-component.js');
+        $GLOBALS['TL_JAVASCRIPT']['combo-wizard-component'] = $objCombiner->getCombinedFile();
+
+        $objCombiner = new Combiner();
+        $objCombiner->add('bundles/alnvcontaowidgetcollection/css/combo-wizard.scss');
+        $objCombiner->add('bundles/alnvcontaowidgetcollection/libs/vue-select/vue-select.scss');
+        $GLOBALS['TL_CSS']['combo-wizard-component'] = $objCombiner->getCombinedFile();
+    }
+
+    public function generate(): string
+    {
+
+        Toolkit::addVueJsScript('TL_JAVASCRIPT');
+
+        $this->setResources();
 
         $objTemplate = new FrontendTemplate('form_combo_wizard');
         $objTemplate->name = $this->name;

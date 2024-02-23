@@ -2,6 +2,8 @@
 
 namespace Alnv\ContaoWidgetCollectionBundle\Widgets;
 
+use Alnv\ContaoWidgetCollectionBundle\Helpers\Toolkit;
+use Contao\Combiner;
 use Contao\FrontendTemplate;
 use Contao\Input;
 use Contao\StringUtil;
@@ -47,6 +49,32 @@ class MultiDatesWizard extends Widget
         return true;
     }
 
+    protected function setResources(): void
+    {
+
+        $objCombiner = new Combiner();
+        $objCombiner->add('bundles/alnvcontaowidgetcollection/libs/moment/moment.min.js');
+        $objCombiner->add('bundles/alnvcontaowidgetcollection/libs/nouislider/nouislider.js');
+        $objCombiner->add('bundles/alnvcontaowidgetcollection/libs/pikaday/pikaday.min.js');
+        $objCombiner->add('bundles/alnvcontaowidgetcollection/libs/sorting/sortable.min.js');
+        $objCombiner->add('bundles/alnvcontaowidgetcollection/libs/sorting/vuedraggable.min.js');
+
+        $objCombiner->add('bundles/alnvcontaowidgetcollection/components/sorting/pikaday-directive.js');
+        $objCombiner->add('bundles/alnvcontaowidgetcollection/components/sorting/nouislider-directive.js');
+        $objCombiner->add('bundles/alnvcontaowidgetcollection/components/sorting/multi-dates-wizard-component.js');
+
+        $GLOBALS['TL_JAVASCRIPT']['form_multi_dates_wizard'] = $objCombiner->getCombinedFile();
+
+        $objCombiner = new Combiner();
+        $objCombiner->add('bundles/alnvcontaowidgetcollection/libs/pikaday/pikaday.min.css');
+        $objCombiner->add('bundles/alnvcontaowidgetcollection/libs/nouislider/nouislider.css');
+        $GLOBALS['TL_CSS']['form_multi_dates_wizard_libs'] = $objCombiner->getCombinedFile();
+
+        $objCombiner = new Combiner();
+        $objCombiner->add('bundles/alnvcontaowidgetcollection/css/multi-dates-wizard.scss');
+        $GLOBALS['TL_CSS']['form_multi_dates_wizard'] = $objCombiner->getCombinedFile();
+    }
+
     public function validate()
     {
 
@@ -63,8 +91,12 @@ class MultiDatesWizard extends Widget
         parent::validate();
     }
 
-    public function generate()
+    public function generate(): string
     {
+
+        Toolkit::addVueJsScript('TL_JAVASCRIPT');
+
+        $this->setResources();
 
         $objTemplate = new FrontendTemplate('form_multi_dates_wizard');
         $objTemplate->useDay = $this->useDay ?: false;

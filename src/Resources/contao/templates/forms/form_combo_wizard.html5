@@ -1,0 +1,14 @@
+<?php
+    use Contao\System;
+?>
+<div id="vue-<?= $this->name ?>-<?= $this->id ?>" class="v-component">
+    <combo-wizard table="<?= $this->table ?>" language="<?= System::getContainer()->get('request_stack')->getCurrentRequest()->getLocale(); ?>" :group="<?= $this->enableGroup ?>" :text-field="<?= $this->enableField ?>" id="<?= $this->id ?>" name="<?= $this->name ?>" :value="<?= $this->value ?>"></combo-wizard>
+</div>
+<script>
+    (function () {
+        new Vue({
+            el: '#vue-<?= $this->name ?>-<?= $this->id ?>',
+            data: {}
+        });
+    })();
+</script>

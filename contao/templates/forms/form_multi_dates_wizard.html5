@@ -1,3 +1,0 @@
-<div class="v-component">
-    <multi-dates-wizard :use-day="<?= $this->useDay ?>" date-format="<?= $this->dateFormat ?>" id="<?= $this->id ?>" name="<?= $this->name ?>" :value=<?= $this->value ?>></multi-dates-wizard>
-</div>

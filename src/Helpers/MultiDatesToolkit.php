@@ -7,7 +7,7 @@ use Contao\Date;
 class MultiDatesToolkit
 {
 
-    public static function findDate($varDate, $strJson, $blnIsTstamp = true, $strMethod = '')
+    public static function findDate($varDate, $strJson, $blnIsTstamp = true, $strMethod = ''): array
     {
 
         global $objPage;
@@ -74,7 +74,7 @@ class MultiDatesToolkit
     }
 
 
-    public static function parseDates($varValues, $strFormat = '')
+    public static function parseDates($varValues, $strFormat = ''): array
     {
 
         $arrReturn = [];
@@ -84,7 +84,7 @@ class MultiDatesToolkit
             $strFormat = $objPage->dateFormat;
         }
 
-        if (!\is_array($varValues) && \is_string($varValues)) {
+        if (\is_string($varValues)) {
             $varValues = Toolkit::decodeJson($varValues, [
                 'option' => 'from',
                 'option2' => 'to'
@@ -92,7 +92,6 @@ class MultiDatesToolkit
         }
 
         if (empty($varValues)) {
-
             return $arrReturn;
         }
 
@@ -101,17 +100,13 @@ class MultiDatesToolkit
             $arrDate = [];
 
             foreach ($varValue as $strName => $strDate) {
-
                 if ($strDate === null || $strDate === '') {
-
                     continue;
                 }
-
                 $arrDate[$strName] = Date::parse($strFormat, (int)$strDate);
             }
 
             if (empty($arrDate)) {
-
                 continue;
             }
 

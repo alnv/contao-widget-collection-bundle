@@ -1,0 +1,5 @@
+controllers:
+  resource:
+    path: ../../Controller/
+    namespace: Alnv\ContaoWidgetCollectionBundle\Controller
+  type: attribute
