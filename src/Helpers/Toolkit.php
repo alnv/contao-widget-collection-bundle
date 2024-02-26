@@ -111,6 +111,6 @@ class Toolkit
             return;
         }
 
-        $GLOBALS[$var]['_vue'] = '<script style="' . $objCombiner->getCombinedFile() . '"></script>';
+        $GLOBALS[$var]['_vue'] = '<script src="' . $objCombiner->getCombinedFile() . '"></script>';
     }
 }
