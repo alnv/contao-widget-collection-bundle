@@ -1,5 +1,3 @@
-controllers:
-  resource:
-    path: ../../Controller/
-    namespace: Alnv\ContaoWidgetCollectionBundle\Controller
-  type: attribute
+widgetcollections:
+  resource: ../../Controller/
+  type: annotation
