@@ -58,7 +58,7 @@ class ComboWizard extends Widget
             return false;
         }
 
-        if (isset($arrJson[0]) && $arrJson[0]['option'] === null || $arrJson[0]['option'] === '') {
+        if (isset($arrJson[0]) && empty($arrJson[0]['option'])) {
             return false;
         }
 

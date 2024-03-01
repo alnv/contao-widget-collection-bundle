@@ -15,7 +15,9 @@ class Attributes extends Controller
 
         if ($arrAttributes['type'] == 'comboWizard' || (isset($arrAttributes['options2_callback']) && $arrAttributes['options2_callback'])) {
 
-            $arrAttributes['options2'] = $arrAttributes['options2'] ?: [];
+            if (!isset($arrAttributes['options2']) || is_array($arrAttributes['options2'])) {
+                $arrAttributes['options2'] = [];
+            }
 
             if (is_array($arrAttributes['options2_callback'])) {
                 $arrCallback = $arrAttributes['options2_callback'];
@@ -34,7 +36,7 @@ class Attributes extends Controller
                 $this->parseOptions($arrOptions, 'options2', $arrAttributes);
             }
 
-            if (!isset($arrAttributes['options']) && $arrAttributes['options_callback']) {
+            if (!isset($arrAttributes['options']) && !empty($arrAttributes['options_callback'])) {
                 if (is_array($arrAttributes['options_callback'])) {
                     $arrCallback = $arrAttributes['options_callback'];
                     $arrOptions = static::importStatic($arrCallback[0])->{$arrCallback[1]}($objDca);
@@ -57,10 +59,10 @@ class Attributes extends Controller
             return null;
         }
 
-        $blnIsAssociative = ($arrAttributes['isAssociative'] || ArrayUtil::isAssoc($arrOptions));
+        $blnIsAssociative = (($arrAttributes['isAssociative']??false) || ArrayUtil::isAssoc($arrOptions));
         $blnUseReference = isset($arrAttributes['reference']);
 
-        if ($arrAttributes['includeBlankOption'] && !$arrAttributes['multiple']) {
+        if (($arrAttributes['includeBlankOption']??false) && !($arrAttributes['multiple']??false)) {
 
             $parser = System::getContainer()->get('contao.insert_tag.parser');
             $strLabel = $parser->replaceInline((string)($arrAttributes['blankOptionLabel'] ?? '-'));
