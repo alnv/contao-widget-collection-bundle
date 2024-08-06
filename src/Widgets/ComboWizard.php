@@ -70,6 +70,8 @@ class ComboWizard extends Widget
 
         $objCombiner = new Combiner();
         $objCombiner->add('bundles/alnvcontaowidgetcollection/libs/vue-select/vue-select.js');
+        $objCombiner->add('bundles/alnvcontaowidgetcollection/libs/sorting/sortable.min.js');
+        $objCombiner->add('bundles/alnvcontaowidgetcollection/libs/sorting/vuedraggable.min.js');
         $objCombiner->add('bundles/alnvcontaowidgetcollection/components/combo-wizard-component.js');
         $GLOBALS['TL_JAVASCRIPT']['combo-wizard-component'] = $objCombiner->getCombinedFile();
 
