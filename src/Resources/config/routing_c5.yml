@@ -1,0 +1,3 @@
+widgetcollections:
+  resource: "@AlnvContaoWidgetCollectionBundle/Controller"
+  type: attribute

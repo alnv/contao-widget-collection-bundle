@@ -1,3 +1,3 @@
 widgetcollections:
-  resource: "@AlnvContaoWidgetCollectionBundle/Controller"
-  type: attribute
+  resource: ../../Controller/
+  type: annotation
